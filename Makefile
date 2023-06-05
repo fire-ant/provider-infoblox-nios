@@ -1,17 +1,18 @@
 # ====================================================================================
 # Setup Project
 
-PROJECT_NAME ?= upjet-provider-template
-PROJECT_REPO ?= github.com/upbound/$(PROJECT_NAME)
+PROJECT_NAME ?= provider-infoblox-nios
+PROJECT_REPO ?= github.com/fire-ant/$(PROJECT_NAME)
 
 export TERRAFORM_VERSION ?= 1.3.3
 
-export TERRAFORM_PROVIDER_SOURCE ?= hashicorp/null
-export TERRAFORM_PROVIDER_REPO ?= https://github.com/hashicorp/terraform-provider-null
-export TERRAFORM_PROVIDER_VERSION ?= 3.1.0
-export TERRAFORM_PROVIDER_DOWNLOAD_NAME ?= terraform-provider-null
-export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX ?= https://releases.hashicorp.com/$(TERRAFORM_PROVIDER_DOWNLOAD_NAME)/$(TERRAFORM_PROVIDER_VERSION)
-export TERRAFORM_NATIVE_PROVIDER_BINARY ?= terraform-provider-null_v3.1.0_x5
+export TERRAFORM_PROVIDER_SOURCE ?= infobloxopen/infoblox
+export TERRAFORM_PROVIDER_VERSION ?= 2.4.0
+export TERRAFORM_PROVIDER_REPO := https://github.com/infobloxopen/terraform-provider-infoblox
+export TERRAFORM_PROVIDER_REPO_HACK := https://github.com/fire-ant/terraform-provider-infoblox
+export TERRAFORM_PROVIDER_DOWNLOAD_NAME ?= terraform-provider-infoblox
+export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX ?= https://github.com/infobloxopen/$(TERRAFORM_PROVIDER_DOWNLOAD_NAME)/releases/download/v$(TERRAFORM_PROVIDER_VERSION)
+export TERRAFORM_NATIVE_PROVIDER_BINARY ?= terraform-provider-infoblox_v2.4.0
 export TERRAFORM_DOCS_PATH ?= docs/resources
 
 
@@ -52,6 +53,8 @@ GO_SUBDIRS += cmd internal apis
 
 KIND_VERSION = v0.15.0
 UP_VERSION = v0.14.0
+USE_HELM3 = true
+HELM3_VERSION = v3.9.1
 UP_CHANNEL = stable
 UPTEST_VERSION = v0.2.1
 -include build/makelib/k8s_tools.mk
@@ -89,7 +92,7 @@ fallthrough: submodules
 
 # NOTE(hasheddan): we force image building to happen prior to xpkg build so that
 # we ensure image is present in daemon.
-xpkg.build.upjet-provider-template: do.build.images
+xpkg.build.provider-infoblox-nios: do.build.images
 
 # NOTE(hasheddan): we ensure up is installed prior to running platform-specific
 # build steps in parallel to avoid encountering an installation race condition.
@@ -121,7 +124,7 @@ $(TERRAFORM_PROVIDER_SCHEMA): $(TERRAFORM)
 pull-docs:
 	@if [ ! -d "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)" ]; then \
   		mkdir -p "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)" && \
-		git clone -c advice.detachedHead=false --depth 1 --filter=blob:none --branch "v$(TERRAFORM_PROVIDER_VERSION)" --sparse "$(TERRAFORM_PROVIDER_REPO)" "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)"; \
+		git clone -c advice.detachedHead=false --depth 1 --filter=blob:none --branch "v$(TERRAFORM_PROVIDER_VERSION)" --sparse "$(TERRAFORM_PROVIDER_REPO_HACK)" "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)"; \
 	fi
 	@git -C "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)" sparse-checkout set "$(TERRAFORM_DOCS_PATH)"
 
@@ -164,7 +167,11 @@ run: go.build
 # End to End Testing
 CROSSPLANE_NAMESPACE = upbound-system
 -include build/makelib/local.xpkg.mk
+ifeq ($(USE_DEVCON),true)
+-include patch/controlplane.mk
+else
 -include build/makelib/controlplane.mk
+endif
 
 uptest: $(UPTEST) $(KUBECTL) $(KUTTL)
 	@$(INFO) running automated tests
@@ -176,6 +183,14 @@ local-deploy: build controlplane.up local.xpkg.deploy.provider.$(PROJECT_NAME)
 	@$(KUBECTL) wait provider.pkg $(PROJECT_NAME) --for condition=Healthy --timeout 5m
 	@$(KUBECTL) -n upbound-system wait --for=condition=Available deployment --all --timeout=5m
 	@$(OK) running locally built provider
+
+tools: $(HELM) $(UPTEST) $(KUBECTL) $(KUTTL) $(TERRAFORM) $(KIND)
+
+infoblox:
+	@$(HELM) upgrade --install nios-test --create-namespace -n infoblox-system \
+  oci://ghcr.io/fire-ant/nios-test --version 0.2.0
+	@$(KUBECTL) -n infoblox-system wait deployment nios-test --for condition=Available --timeout=300s
+	@$(OK) running locally deployed infoblox instance
 
 e2e: local-deploy uptest
 

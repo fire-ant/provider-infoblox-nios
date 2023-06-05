@@ -24,12 +24,12 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	"github.com/upbound/upjet-provider-template/apis"
-	"github.com/upbound/upjet-provider-template/apis/v1alpha1"
-	"github.com/upbound/upjet-provider-template/config"
-	"github.com/upbound/upjet-provider-template/internal/clients"
-	"github.com/upbound/upjet-provider-template/internal/controller"
-	"github.com/upbound/upjet-provider-template/internal/features"
+	"github.com/fire-ant/provider-infoblox-nios/apis"
+	"github.com/fire-ant/provider-infoblox-nios/apis/v1alpha1"
+	"github.com/fire-ant/provider-infoblox-nios/config"
+	"github.com/fire-ant/provider-infoblox-nios/internal/clients"
+	"github.com/fire-ant/provider-infoblox-nios/internal/controller"
+	"github.com/fire-ant/provider-infoblox-nios/internal/features"
 )
 
 func main() {
@@ -51,7 +51,7 @@ func main() {
 	kingpin.MustParse(app.Parse(os.Args[1:]))
 
 	zl := zap.New(zap.UseDevMode(*debug))
-	log := logging.NewLogrLogger(zl.WithName("upjet-provider-template"))
+	log := logging.NewLogrLogger(zl.WithName("provider-infoblox-nios"))
 	if *debug {
 		// The controller-runtime runs with a no-op logger by default. It is
 		// *very* verbose even at info level, so we only provide it a real
@@ -66,7 +66,7 @@ func main() {
 
 	mgr, err := ctrl.NewManager(cfg, ctrl.Options{
 		LeaderElection:             *leaderElection,
-		LeaderElectionID:           "crossplane-leader-election-upjet-provider-template",
+		LeaderElectionID:           "crossplane-leader-election-provider-infoblox-nios",
 		SyncPeriod:                 syncPeriod,
 		LeaderElectionResourceLock: resourcelock.LeasesResourceLock,
 		LeaseDuration:              func() *time.Duration { d := 60 * time.Second; return &d }(),

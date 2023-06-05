@@ -9,8 +9,24 @@ import "github.com/upbound/upjet/pkg/config"
 // ExternalNameConfigs contains all external name configurations for this
 // provider.
 var ExternalNameConfigs = map[string]config.ExternalName{
-	// Import requires using a randomly generated ID from provider: nl-2e21sda
-	"null_resource": config.IdentifierFromProvider,
+	"infoblox_ip_allocation":          config.IdentifierFromProvider,
+	"infoblox_ip_association":         config.IdentifierFromProvider,
+	"infoblox_ipv4_allocation":        config.IdentifierFromProvider,
+	"infoblox_ipv4_association":       config.IdentifierFromProvider,
+	"infoblox_ipv4_network":           config.IdentifierFromProvider,
+	"infoblox_ipv4_network_container": config.IdentifierFromProvider,
+	"infoblox_ipv6_allocation":        config.IdentifierFromProvider,
+	"infoblox_ipv6_association":       config.IdentifierFromProvider,
+	"infoblox_ipv6_network":           config.IdentifierFromProvider,
+	"infoblox_ipv6_network_container": config.IdentifierFromProvider,
+	"infoblox_a_record":               config.IdentifierFromProvider,
+	"infoblox_aaaa_record":            config.IdentifierFromProvider,
+	"infoblox_cname_record":           config.IdentifierFromProvider,
+	"infoblox_srv_record":             config.IdentifierFromProvider,
+	"infoblox_txt_record":             config.IdentifierFromProvider,
+	"infoblox_ptr_record":             config.IdentifierFromProvider,
+	"infoblox_mx_record":              config.IdentifierFromProvider,
+	"infoblox_network_view":           config.IdentifierFromProvider,
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the
