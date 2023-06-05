@@ -8,6 +8,8 @@ import (
 	// Note(turkenh): we are importing this to embed provider schema document
 	_ "embed"
 
+	ujconfig "github.com/upbound/upjet/pkg/config"
+
 	"github.com/fire-ant/provider-infoblox-nios/config/dns/aaaarecord"
 	"github.com/fire-ant/provider-infoblox-nios/config/dns/arecord"
 	"github.com/fire-ant/provider-infoblox-nios/config/dns/cnamerecord"
@@ -26,7 +28,6 @@ import (
 	"github.com/fire-ant/provider-infoblox-nios/config/ipv6/ipv6network"
 	"github.com/fire-ant/provider-infoblox-nios/config/ipv6/ipv6networkcontainer"
 	"github.com/fire-ant/provider-infoblox-nios/config/network/view"
-	ujconfig "github.com/upbound/upjet/pkg/config"
 )
 
 const (
@@ -50,6 +51,7 @@ func GetProvider() *ujconfig.Provider {
 		))
 
 	for _, configure := range []func(provider *ujconfig.Provider){
+		// add custom resource configurators
 		allocation.Configure,
 		association.Configure,
 		ipv4allocation.Configure,

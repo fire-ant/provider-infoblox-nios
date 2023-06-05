@@ -28,15 +28,22 @@ const (
 )
 
 const (
-	// credential keys
-	Server            = "server"
-	Username          = "username"
-	Password          = "password"
-	SSLmode           = "sslmode"
-	Port              = "port"
+	// Server Key
+	Server = "server"
+	// Username Key
+	Username = "username"
+	// Password Key
+	Password = "password"
+	// SSLmode Key
+	SSLmode = "sslmode"
+	// Port Key
+	Port = "port"
+	// ConnectionTimeout Key
 	ConnectionTimeout = "connection_timeout"
-	PoolConnections   = "pool_connections"
-	WapiVersion       = "wapi_version"
+	// PoolConnections Key
+	PoolConnections = "pool_connections"
+	// WapiVersion Key
+	WapiVersion = "wapi_version"
 )
 
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
