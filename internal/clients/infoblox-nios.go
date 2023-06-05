@@ -28,6 +28,7 @@ const (
 )
 
 const (
+	// credential keys
 	Server            = "server"
 	Username          = "username"
 	Password          = "password"
