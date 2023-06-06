@@ -188,7 +188,7 @@ tools: $(HELM) $(UPTEST) $(KUBECTL) $(KUTTL) $(TERRAFORM) $(KIND)
 
 infoblox:
 	@$(HELM) upgrade --install nios-test --create-namespace -n infoblox-system \
-  oci://ghcr.io/fire-ant/nios-test --version 0.2.0
+  oci://ghcr.io/fire-ant/nios-test --version 0.3.0
 	@$(KUBECTL) -n infoblox-system wait deployment nios-test --for condition=Available --timeout=300s
 	@$(OK) running locally deployed infoblox instance
 
