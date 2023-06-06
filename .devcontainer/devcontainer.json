@@ -18,7 +18,10 @@
 			"minikube": "none"
 		},
 		"ghcr.io/jungaretti/features/make:1": {},
-		"ghcr.io/devcontainers-contrib/features/gh-cli:1": {}
+		"ghcr.io/devcontainers-contrib/features/gh-cli:1": {},
+		"ghcr.io/devcontainers-contrib/features/bash-command:1": {
+			"command": "wget https://github.com/Skarlso/crd-to-sample-yaml/releases/download/v0.0.15/cty_linux_amd64.tar.gz && tar -xvf cty_linux_amd64.tar.gz && mv cty /usr/local/bin/"
+		}
 	},
 	"runArgs": [
 		"--network=kind-sandbox"
