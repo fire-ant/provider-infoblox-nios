@@ -58,3 +58,25 @@ make build
 
 For filing bugs, suggesting improvements, or requesting new features, please
 open an [issue](https://github.com/fire-ant/provider-infoblox-nios/issues).
+
+
+Testing Notes:
+
+1: get a curl endpoint
+```
+kubectl get allocation testipallocation -o jsonpath='{.status.atProvider.ref}'
+```
+
+2: get a curl pod to GET from the endpoint
+```
+kubectl run --image=curlimages/curl:latest -i --tty mycurlpod -- sh
+```
+
+3: run a curl test using the Status.AtProvider.Ref from the resource your
+```
+curl -k1 -u admin:infoblox -X GET https://nios-test.infoblox-system.svc.
+cluster.local/wapi/v2.9/record:host/ZG5zLnJlY29yZDpob3N0JE5vbmU=:ip-12-34-56
+-78.us-west-2.compute.internal/false
+```
+
+REST Doc: https://www.infoblox.com/wp-content/uploads/infoblox-deployment-infoblox-rest-api.pdf
