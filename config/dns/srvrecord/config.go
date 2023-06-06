@@ -7,6 +7,9 @@ func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("infoblox_srv_record", func(r *config.Resource) {
 		r.ShortGroup = "dns"
 		r.Kind = "SRV"
-		r.ExternalName = config.NameAsIdentifier
+		r.ExternalName = config.IdentifierFromProvider
+		r.ExternalName.OmittedFields = []string{
+			"name",
+		}
 	})
 }

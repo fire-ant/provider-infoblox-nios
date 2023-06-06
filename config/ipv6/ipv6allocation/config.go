@@ -7,6 +7,9 @@ func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("infoblox_ipv6_allocation", func(r *config.Resource) {
 
 		r.ShortGroup = "ipv6"
-		r.ExternalName = config.NameAsIdentifier
+		r.ExternalName = config.IdentifierFromProvider
+		r.ExternalName.OmittedFields = []string{
+			"name",
+		}
 	})
 }

@@ -1,0 +1,14 @@
+apiVersion: ipv4.infoblox-nios.upbound.io/v1alpha1
+kind: Network
+metadata: 
+  name: ipv4testnetwork
+spec:
+  forProvider:
+    comment: "this is a test comment"
+    cidr: "1.0.0.0/24"
+    parentCidr: "1.0.0.0/24"
+    networkView: default
+    extAttrs: |
+      {
+        "Location": "Test Site"
+      }

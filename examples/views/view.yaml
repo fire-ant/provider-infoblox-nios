@@ -1,0 +1,11 @@
+apiVersion: network.infoblox-nios.upbound.io/v1alpha1
+kind: View
+metadata: 
+  name: default
+spec:
+  forProvider:
+    comment: this is a test view
+    extAttrs: |
+      {
+        "location": "Test-site"
+      }

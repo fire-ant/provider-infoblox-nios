@@ -1,0 +1,68 @@
+apiVersion: ip.infoblox-nios.upbound.io/v1alpha1
+kind: Allocation
+metadata: {}
+spec:
+  deletionPolicy: string
+  forProvider:
+    allocatedIpv4Addr: string
+    allocatedIpv6Addr: string
+    comment: string
+    dnsView: string
+    enableDns: true
+    extAttrs: string
+    fqdn: string
+    ipv4Addr: string
+    ipv4Cidr: string
+    ipv6Addr: string
+    ipv6Cidr: string
+    networkView: string
+    ttl: number
+  managementPolicy: string
+  providerConfigRef:
+    name: string
+    policy:
+      resolution: string
+      resolve: string
+  providerRef:
+    name: string
+    policy:
+      resolution: string
+      resolve: string
+  publishConnectionDetailsTo:
+    configRef:
+      name: string
+      policy:
+        resolution: string
+        resolve: string
+    metadata:
+      annotations:
+      labels:
+      type: string
+    name: string
+  writeConnectionSecretToRef:
+    name: string
+    namespace: string
+status:
+  atProvider:
+    allocatedIpv4Addr: string
+    allocatedIpv6Addr: string
+    comment: string
+    dnsView: string
+    enableDns: true
+    extAttrs: string
+    fqdn: string
+    id: string
+    internalId: string
+    ipv4Addr: string
+    ipv4Cidr: string
+    ipv6Addr: string
+    ipv6Cidr: string
+    networkView: string
+    ref: string
+    ttl: number
+  conditions:
+  - lastTransitionTime: string
+    message: string
+    reason: string
+    status: string
+    type: string

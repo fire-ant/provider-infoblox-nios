@@ -1,0 +1,54 @@
+apiVersion: dns.infoblox-nios.upbound.io/v1alpha1
+kind: MX
+metadata: {}
+spec:
+  deletionPolicy: string
+  forProvider:
+    comment: string
+    dnsView: string
+    extAttrs: string
+    fqdn: string
+    mailExchanger: string
+    preference: number
+    ttl: number
+  managementPolicy: string
+  providerConfigRef:
+    name: string
+    policy:
+      resolution: string
+      resolve: string
+  providerRef:
+    name: string
+    policy:
+      resolution: string
+      resolve: string
+  publishConnectionDetailsTo:
+    configRef:
+      name: string
+      policy:
+        resolution: string
+        resolve: string
+    metadata:
+      annotations:
+      labels:
+      type: string
+    name: string
+  writeConnectionSecretToRef:
+    name: string
+    namespace: string
+status:
+  atProvider:
+    comment: string
+    dnsView: string
+    extAttrs: string
+    fqdn: string
+    id: string
+    mailExchanger: string
+    preference: number
+    ttl: number
+  conditions:
+  - lastTransitionTime: string
+    message: string
+    reason: string
+    status: string
+    type: string

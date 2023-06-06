@@ -1,0 +1,15 @@
+apiVersion: ip.infoblox-nios.upbound.io/v1alpha1
+kind: Allocation
+metadata: 
+  name: testipallocation
+spec:
+  forProvider:
+    enableDns: false
+    extAttrs: |
+      {
+        "Location": "AWholeNewWorld"
+      }
+    fqdn: ip-12-34-56-78.us-west-2.compute.internal
+    ipv4Addr: 192.168.0.1
+    networkView: default
+    # ttl: number

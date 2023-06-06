@@ -7,6 +7,9 @@ func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("infoblox_ptr_record", func(r *config.Resource) {
 		r.ShortGroup = "dns"
 		r.Kind = "PTR"
-		r.ExternalName = config.NameAsIdentifier
+		r.ExternalName = config.IdentifierFromProvider
+		r.ExternalName.OmittedFields = []string{
+			"name",
+		}
 	})
 }

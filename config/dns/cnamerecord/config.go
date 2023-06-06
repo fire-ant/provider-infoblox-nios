@@ -7,6 +7,9 @@ func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("infoblox_cname_record", func(r *config.Resource) {
 		r.ShortGroup = "dns"
 		r.Kind = "CNAME"
-		r.ExternalName = config.NameAsIdentifier
+		r.ExternalName = config.IdentifierFromProvider
+		r.ExternalName.OmittedFields = []string{
+			"name",
+		}
 	})
 }

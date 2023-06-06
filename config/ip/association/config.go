@@ -7,6 +7,9 @@ func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("infoblox_ip_association", func(r *config.Resource) {
 
 		r.ShortGroup = "ip"
-		r.ExternalName = config.NameAsIdentifier
+		r.ExternalName = config.IdentifierFromProvider
+		r.ExternalName.OmittedFields = []string{
+			"name",
+		}
 	})
 }

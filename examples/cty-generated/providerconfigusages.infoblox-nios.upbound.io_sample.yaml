@@ -1,0 +1,13 @@
+apiVersion: infoblox-nios.upbound.io/v1beta1
+kind: ProviderConfigUsage
+metadata: {}
+providerConfigRef:
+  name: string
+  policy:
+    resolution: string
+    resolve: string
+resourceRef:
+  apiVersion: infoblox-nios.upbound.io/v1beta1
+  kind: ProviderConfigUsage
+  name: string
+  uid: string

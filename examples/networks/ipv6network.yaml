@@ -1,0 +1,9 @@
+apiVersion: ipv6.infoblox-nios.upbound.io/v1alpha1
+kind: Network
+metadata: 
+  name: testipv6network
+spec:
+  forProvider:
+    comment: "this is a test comment"
+    cidr: "fe80::/64"
+    networkView: default

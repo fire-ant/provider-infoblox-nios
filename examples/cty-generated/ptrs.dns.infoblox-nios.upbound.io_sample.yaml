@@ -1,0 +1,58 @@
+apiVersion: dns.infoblox-nios.upbound.io/v1alpha1
+kind: PTR
+metadata: {}
+spec:
+  deletionPolicy: string
+  forProvider:
+    cidr: string
+    comment: string
+    dnsView: string
+    extAttrs: string
+    ipAddr: string
+    networkView: string
+    ptrdname: string
+    recordName: string
+    ttl: number
+  managementPolicy: string
+  providerConfigRef:
+    name: string
+    policy:
+      resolution: string
+      resolve: string
+  providerRef:
+    name: string
+    policy:
+      resolution: string
+      resolve: string
+  publishConnectionDetailsTo:
+    configRef:
+      name: string
+      policy:
+        resolution: string
+        resolve: string
+    metadata:
+      annotations:
+      labels:
+      type: string
+    name: string
+  writeConnectionSecretToRef:
+    name: string
+    namespace: string
+status:
+  atProvider:
+    cidr: string
+    comment: string
+    dnsView: string
+    extAttrs: string
+    id: string
+    ipAddr: string
+    networkView: string
+    ptrdname: string
+    recordName: string
+    ttl: number
+  conditions:
+  - lastTransitionTime: string
+    message: string
+    reason: string
+    status: string
+    type: string
