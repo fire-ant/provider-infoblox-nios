@@ -1,0 +1,32 @@
+apiVersion: ipv4.infoblox-nios.upbound.io/v1alpha1
+kind: Network
+metadata: 
+  name: ipv4testnetwork
+spec:
+  forProvider:
+    comment: "this is a test comment"
+    cidr: "1.0.0.0/24"
+    parentCidr: "1.0.0.0/24"
+    networkView: default
+    extAttrs: |
+      {
+        "Location": "Test Site"
+      }
+---
+apiVersion: dns.infoblox-nios.upbound.io/v1alpha1
+kind: Record
+metadata: 
+  name: dns-example-arecord
+spec:
+  forProvider:
+    cidr: 
+    comment: example static A-record rec2
+    dnsView: default
+    extAttrs: |
+      {
+        "Location": "Test Site"
+      }
+    fqdn: static2.example4.org
+    ipAddr: 1.0.0.1 # this could be from its associated ipv4/ipv6 network
+    networkView: default # this could be from its associated ipv4/ipv6 network
+    ttl: 120
